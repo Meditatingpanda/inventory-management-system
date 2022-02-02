@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import Inventory from "../components/Inventory";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import SalesExecutives from "../components/SalesExecutives";
 import CreateOrder from "../components/CreateOrder";
 import Orders from "../components/Orders";
@@ -15,7 +15,7 @@ function SalesMan({ state, setState }) {
       <div className="flex">
         <SidebarSales />
         <Routes>
-          <Route exact path="/" element={<CreateOrder />} />
+          <Route exact path="/" element={<Navigate to="/create" />} />
           <Route exact path="/create" element={<CreateOrder />} />
           <Route exact path="/orders" element={<Orders />} />
         </Routes>
