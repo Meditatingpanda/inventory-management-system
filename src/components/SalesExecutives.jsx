@@ -209,14 +209,23 @@ function SalesExecutives() {
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider> */}
-            <TextField
+            <div className="flex flex-col text-gray-600">
+              <label for="dob">DOB</label>
+              <input
+                type="date"
+                id="dob"
+                onChange={(e) => (arr[2] = e.target.value)}
+                className="border-2 rounded pl-2"
+              />
+            </div>
+            {/* <TextField
               variant="outlined"
               label="DOB"
               sx={{ width: "25%" }}
               type="number"
               defaultValue={0}
               onChange={(e) => (arr[2] = e.target.value)}
-            />
+            /> */}
             <TextField
               variant="outlined"
               label="Gender(M/F/O)"
@@ -294,14 +303,24 @@ function SalesExecutives() {
               mb: 5,
             }}
           >
-            <TextField
+             <div className="flex flex-col text-gray-600">
+              <label for="dob">DOB</label>
+              <input
+                type="date"
+                id="dob"
+                //value={updateData.price}
+                onChange={(e) => (tempArr[2] = e.target.value)}
+                className="border-2 rounded pl-2"
+              />
+            </div>
+            {/* <TextField
               variant="outlined"
               label="DOB"
               sx={{ width: "25%" }}
               type="number"
               defaultValue={updateData.price}
               onChange={(e) => (tempArr[2] = e.target.value)}
-            />
+            /> */}
             <TextField
               variant="outlined"
               label="Gender(M/F/O)"
