@@ -1,4 +1,4 @@
-import { IconButton, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import LocalPharmacyIcon from '@mui/icons-material/LocalPharmacy';
 
 const Navbar = () => {

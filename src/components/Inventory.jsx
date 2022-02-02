@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -25,20 +25,20 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
 function createData(name, Manufacturer, price, stocks, discount) {
   return { name, Manufacturer, price, stocks, discount };
 }
+
 function Inventory() {
+  const addLocalStorage = (data) => {
+    localStorage.inventoryData = JSON.stringify(data);
+  };
+
   const [open, setOpen] = useState(false);
   const [update, setUpdate] = useState(false);
   const [updateData, SetUpdateData] = useState({});
-  const [rows, setRows] = useState([
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 22, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-  ]);
+  const [rows, setRows] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [newId, setNewId] = useState(null);
@@ -46,22 +46,30 @@ function Inventory() {
   let tempArr = [];
   let newRows = [5];
   const keys = ["name", "Manufacturer", "price", "stocks", "discount"];
-
+  useEffect(() => {
+    if (rows.length !== 0) {
+      addLocalStorage(rows);
+    }
+  }, [rows]);
+  useEffect(() => {
+    let valueData = JSON.parse(localStorage.getItem("inventoryData") || "[]");
+    setRows(valueData);
+  }, []);
   const handleDelete = (id) => {
-    setRows(rows.filter((key, keyId) => keyId != id));
+    setRows(rows.filter((key, keyId) => keyId !== id));
+    addLocalStorage(rows.filter((key, keyId) => keyId !== id));
   };
 
   const handleAddToInventory = () => {
-    console.log(createData(...arr));
     setRows([...rows, createData(...arr)]);
     setOpen(false);
   };
 
   const handleUpdate = (id) => {
     SetUpdateData({ ...rows[id] });
-    //console.log(updateData);
     setNewId(id);
   };
+
   const handleUpdateDetails = () => {
     for (let i = 0; i < 5; i++) {
       if (!tempArr[i]) {
@@ -72,6 +80,7 @@ function Inventory() {
     newRows[newId] = createData(...tempArr);
     console.log(newRows);
     setRows([...newRows]);
+
     setUpdate(false);
   };
 
