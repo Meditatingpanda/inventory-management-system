@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Card, TextField, IconButton, Button } from "@mui/material";
+import { TextField, IconButton, Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -12,9 +12,9 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
+let orderList = {};
 const rows = [...JSON.parse(localStorage.getItem("inventoryData") || "[]")];
 function createData(name, qty, price) {
   return { name, qty, price };
@@ -22,6 +22,8 @@ function createData(name, qty, price) {
 
 function CreateOrder() {
   let sum = 0;
+  const [cosName, setCosName] = useState("");
+  const [cosContact, setCosContact] = useState("");
   const [id, setId] = useState("");
   const [qt, setQt] = useState(0);
   const [total, setTotal] = useState(0);
@@ -36,6 +38,21 @@ function CreateOrder() {
       setTotal(sum);
     }
   };
+  const handleCreateOrder = () => {
+    orderList = {
+      cart: [...orders],
+      customerName: cosName,
+      isSales: false,
+      phoneNum: cosContact,
+      totalAmount: total,
+    };
+    localStorage.orderList=JSON.stringify(orderList);
+    console.log(orderList);
+     refreshPage();
+  };
+  const refreshPage = ()=>{
+    window.location.reload();
+ }
 
   return (
     <div className="bg-red-50 p-10 shadow-lg flex-grow rounded-lg ">
@@ -55,7 +72,9 @@ function CreateOrder() {
                 onChange={(e) => setId(e.target.value)}
               >
                 {rows.map((row, id) => (
-                  <MenuItem key={id} value={id}>{row.name}</MenuItem>
+                  <MenuItem key={id} value={id}>
+                    {row.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -92,11 +111,14 @@ function CreateOrder() {
               id="outlined-basic"
               label="Customer Name"
               variant="outlined"
+              onChange={(e) => setCosName(e.target.value)}
             />
             <TextField
               id="outlined-basic"
               label="Contact Number"
+              type="number"
               variant="outlined"
+              onChange={(e) => setCosContact(e.target.value)}
             />
           </div>
 
@@ -128,10 +150,17 @@ function CreateOrder() {
 
           <div className="w-3/4 flex p-5 justify-between mx-auto  border-t-2 border-b-2 border-red-600">
             <span>Total:-</span>
-            <span><CurrencyRupeeIcon/>{total}</span>
+            <span>
+              <CurrencyRupeeIcon />
+              {total}
+            </span>
           </div>
           <div className="flex justify-center mt-5 mb-5">
-            <Button variant="contained" color="error">
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleCreateOrder}
+            >
               Create Order
             </Button>
           </div>

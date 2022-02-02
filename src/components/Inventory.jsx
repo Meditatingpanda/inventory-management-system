@@ -34,7 +34,7 @@ function Inventory() {
   const addLocalStorage = (data) => {
     localStorage.inventoryData = JSON.stringify(data);
   };
-
+  
   const [open, setOpen] = useState(false);
   const [update, setUpdate] = useState(false);
   const [updateData, SetUpdateData] = useState({});
@@ -63,6 +63,7 @@ function Inventory() {
   const handleAddToInventory = () => {
     setRows([...rows, createData(...arr)]);
     setOpen(false);
+    refreshPage();
   };
 
   const handleUpdate = (id) => {
@@ -80,9 +81,13 @@ function Inventory() {
     newRows[newId] = createData(...tempArr);
     console.log(newRows);
     setRows([...newRows]);
-
     setUpdate(false);
+    refreshPage();
   };
+
+  const refreshPage = ()=>{
+    window.location.reload();
+ }
 
   return (
     <div className="bg-red-50 p-10 shadow-lg flex-grow rounded-lg ">
@@ -223,6 +228,7 @@ function Inventory() {
             <Button
               variant="contained"
               onClick={handleAddToInventory}
+              
               color="error"
             >
               ADD TO INVENTORY
