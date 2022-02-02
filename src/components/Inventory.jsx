@@ -14,7 +14,6 @@ import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import { red } from "@mui/material/colors";
 import CloseIcon from "@mui/icons-material/Close";
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -26,11 +25,9 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
 function createData(name, Manufacturer, price, stocks, discount) {
   return { name, Manufacturer, price, stocks, discount };
 }
-
 function Inventory() {
   const [open, setOpen] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -44,12 +41,14 @@ function Inventory() {
   ]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  let newId;
+  const [newId, setNewId] = useState(null);
   let arr = [];
   let tempArr = [];
+  let newRows = [5];
+  const keys = ["name", "Manufacturer", "price", "stocks", "discount"];
+
   const handleDelete = (id) => {
     setRows(rows.filter((key, keyId) => keyId != id));
-    console.log(rows);
   };
 
   const handleAddToInventory = () => {
@@ -60,14 +59,22 @@ function Inventory() {
 
   const handleUpdate = (id) => {
     SetUpdateData({ ...rows[id] });
-    console.log(updateData);
-    newId = id;
+    //console.log(updateData);
+    setNewId(id);
   };
   const handleUpdateDetails = () => {
-    console.log(tempArr);
+    for (let i = 0; i < 5; i++) {
+      if (!tempArr[i]) {
+        tempArr[i] = updateData[`${keys[i]}`];
+      }
+    }
+    newRows = [...rows];
+    newRows[newId] = createData(...tempArr);
+    console.log(newRows);
+    setRows([...newRows]);
     setUpdate(false);
   };
-  
+
   return (
     <div className="bg-red-50 p-10 shadow-lg flex-grow rounded-lg ">
       <Container>
@@ -269,6 +276,7 @@ function Inventory() {
               variant="outlined"
               label="Price"
               sx={{ width: "25%" }}
+              type="number"
               defaultValue={updateData.price}
               onChange={(e) => (tempArr[2] = e.target.value)}
             />
@@ -277,12 +285,14 @@ function Inventory() {
               label="Stock"
               sx={{ width: "25%" }}
               defaultValue={updateData.stocks}
+              type="number"
               onChange={(e) => (tempArr[3] = e.target.value)}
             />
             <TextField
               variant="outlined"
               label="Discount"
               sx={{ width: "25%" }}
+              type="number"
               defaultValue={updateData.discount}
               onChange={(e) => (tempArr[4] = e.target.value)}
             />
