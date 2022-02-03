@@ -14,21 +14,6 @@ function SidebarSales() {
   return (
     <div className=" w-64 p-6 min-h-screen text-xl text-gray-400 shadow-md">
       <div className="h-[6rem] flex flex-col justify-around">
-        
-        {/* <div
-          className={currentPAth === "/" ? newStyle : style}
-          onClick={() => navigate("/")}
-        >
-          <ShoppingBagIcon sx={{ mr: 1 }} />
-          Inventory
-        </div> */}
-        {/* <div
-          className={currentPAth === "/sales" ? newStyle : style}
-          onClick={() => navigate("/sales")}
-        >
-          <PeopleIcon sx={{ mr: 1 }} />
-          Sales Executives
-        </div> */}
         <div
           className={currentPAth === "/create" ? newStyle : style}
           onClick={() => navigate("/create")}

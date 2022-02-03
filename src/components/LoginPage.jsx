@@ -3,13 +3,16 @@ import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
 
-
 const LoginPage = ({ state, setState }) => {
- 
   const [user, setUser] = useState("");
   const [password, SetPassword] = useState("");
   const refreshPage = () => {
     window.location.reload();
+  };
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
   };
   const handleLogin = () => {
     if (user === "test-admin" && password === "test-admin") {
@@ -20,17 +23,14 @@ const LoginPage = ({ state, setState }) => {
       alert("wrong Password!! Try again");
       localStorage.state = "login";
     }
-    
+
     refreshPage();
   };
   return (
     <div className="bg-red-50 relative min-h-screen flex justify-center items-center ">
-     
-      <div  className="text-red-400 absolute top-3 left-3 flex items-center">
-      <LocalPharmacyIcon sx={{fontSize:'3rem'}}/>
-        <span className="text-3xl ">
-        PMS-React
-        </span>
+      <div className="text-red-400 absolute top-3 left-3 flex items-center">
+        <LocalPharmacyIcon sx={{ fontSize: "3rem" }} />
+        <span className="text-3xl ">PMS-React</span>
       </div>
       <div className="bg-red-100 w-[50%] justify-around h-[25rem] rounded-xl shadow-md p-9 flex flex-col items-center">
         <Typography variant="h3" className="text-red-300">
@@ -49,6 +49,7 @@ const LoginPage = ({ state, setState }) => {
           label="Password"
           type="password"
           color="error"
+          onKeyDown={handleEnter}
           onChange={(e) => SetPassword(e.target.value)}
         />
         <Button variant="contained" color="error" onClick={handleLogin}>

@@ -19,20 +19,20 @@ const rows = [...JSON.parse(localStorage.getItem("inventoryData") || "[]")];
 function createData(name, qty, price) {
   return { name, qty, price };
 }
-const userCheck=()=>{
- return  localStorage.state==='admin'?true:false;
-}
+const userCheck = () => {
+  return localStorage.state === "admin" ? true : false;
+};
 let sum = 0;
 function CreateOrder() {
   useEffect(() => {
-    let key=localStorage.getItem('orderList');
-    if(key){
-      orderList.push(...JSON.parse(key||'[]'));
+    let key = localStorage.getItem("orderList");
+    if (key) {
+      orderList.push(...JSON.parse(key || "[]"));
     }
-       
+
     //console.log(JSON.parse(localStorage.getItem('orderList') || "[]"));
   }, []);
-  
+
   const [cosName, setCosName] = useState("");
   const [cosContact, setCosContact] = useState("");
   const [id, setId] = useState("");
@@ -45,7 +45,7 @@ function CreateOrder() {
       alert("add qty first");
     } else {
       setOrders([...orders, createData(rows[id].name, qt, rows[id].price)]);
-      sum += (rows[id].price )* qt;
+      sum += rows[id].price * qt;
       setTotal(sum);
     }
   };
