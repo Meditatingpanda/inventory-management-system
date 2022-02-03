@@ -3,16 +3,19 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 
 function Orders() {
-  const [orderHistory, setOrderHistory] = useState([
-    ...JSON.parse(localStorage.getItem("orderList") || "[]"),
-  ]);
+  const [orderHistory, setOrderHistory] = useState([]);
+  useEffect(() => {
+    setOrderHistory([...JSON.parse(localStorage.getItem("orderList") || "[]")]);
+  }, []);
 
   const handleDelete = (id) => {
-    setOrderHistory(orderHistory.filter((key, iD) => iD != id));
-    console.log(orderHistory);
+    // setOrderHistory();
+   // console.log(id);
+    setOrderHistory(orderHistory.filter((key, iD) => iD !== id));
+     console.log(orderHistory);
     localStorage.orderList = JSON.stringify(orderHistory);
   };
- 
+
   return (
     <div className="bg-red-50 p-10  shadow-lg flex-col items-center flex-grow rounded-lg ">
       <div className="text-red-500 text-4xl text-center">Order History</div>
@@ -23,7 +26,6 @@ function Orders() {
               className="min-h-[10rem] bg-white mb-10 p-5 shadow-md "
               key={id}
             >
-              {console.log(key)}
               <div className="flex justify-around ">
                 <span>Customer Name: {key.customerName}</span>
                 <span>Contact Number:{key.phoneNum}</span>

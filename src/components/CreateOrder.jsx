@@ -22,7 +22,7 @@ function createData(name, qty, price) {
 const userCheck=()=>{
  return  localStorage.state==='admin'?true:false;
 }
-
+let sum = 0;
 function CreateOrder() {
   useEffect(() => {
     let key=localStorage.getItem('orderList');
@@ -32,7 +32,7 @@ function CreateOrder() {
        
     //console.log(JSON.parse(localStorage.getItem('orderList') || "[]"));
   }, []);
-  let sum = 0;
+  
   const [cosName, setCosName] = useState("");
   const [cosContact, setCosContact] = useState("");
   const [id, setId] = useState("");
@@ -45,7 +45,7 @@ function CreateOrder() {
       alert("add qty first");
     } else {
       setOrders([...orders, createData(rows[id].name, qt, rows[id].price)]);
-      sum += rows[id].price * qt;
+      sum += (rows[id].price )* qt;
       setTotal(sum);
     }
   };
