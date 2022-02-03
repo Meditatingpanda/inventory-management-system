@@ -19,12 +19,15 @@ const rows = [...JSON.parse(localStorage.getItem("inventoryData") || "[]")];
 function createData(name, qty, price) {
   return { name, qty, price };
 }
+const userCheck=()=>{
+ return  localStorage.state==='admin'?true:false;
+}
 
 function CreateOrder() {
   useEffect(() => {
     let key=localStorage.getItem('orderList');
     if(key){
-      orderList.push(...JSON.parse(key));
+      orderList.push(...JSON.parse(key||'[]'));
     }
        
     //console.log(JSON.parse(localStorage.getItem('orderList') || "[]"));
@@ -50,7 +53,7 @@ function CreateOrder() {
     orderList.push({
       cart: [...orders],
       customerName: cosName,
-      isSales: false,
+      isSales: userCheck(),
       phoneNum: cosContact,
       totalAmount: total,
       id: randomIdGenerator(),
