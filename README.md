@@ -1,9 +1,9 @@
 <h1>Project Hosted:- https://pms-react-dd674.web.app/ </h1>
 <h3>For Admin Login:-</h3>
-UserName:- testadmin
+UserName:- test-admin
 <br>
-passWord:- testadmin
+passWord:- test-admin
 <h3>For Sales Login:-</h3>
-UserName:- testsales
+UserName:- test-sales
 <br>
-password:- testsales
+password:- test-sales
