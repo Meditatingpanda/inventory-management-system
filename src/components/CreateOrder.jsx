@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, IconButton, Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,13 +14,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
-let orderList = {};
+let orderList = [];
 const rows = [...JSON.parse(localStorage.getItem("inventoryData") || "[]")];
 function createData(name, qty, price) {
   return { name, qty, price };
 }
 
 function CreateOrder() {
+  useEffect(() => {
+    let key=localStorage.getItem('orderList');
+    if(key){
+      orderList.push(...JSON.parse(key));
+    }
+       
+    //console.log(JSON.parse(localStorage.getItem('orderList') || "[]"));
+  }, []);
   let sum = 0;
   const [cosName, setCosName] = useState("");
   const [cosContact, setCosContact] = useState("");
@@ -39,20 +47,27 @@ function CreateOrder() {
     }
   };
   const handleCreateOrder = () => {
-    orderList = {
+    orderList.push({
       cart: [...orders],
       customerName: cosName,
       isSales: false,
       phoneNum: cosContact,
       totalAmount: total,
-    };
-    localStorage.orderList=JSON.stringify(orderList);
+      id: randomIdGenerator(),
+    });
+
+    localStorage.orderList = JSON.stringify(orderList);
     console.log(orderList);
-     refreshPage();
+    //console.log(randomIdGenerator());
+    refreshPage();
   };
-  const refreshPage = ()=>{
+  const refreshPage = () => {
     window.location.reload();
- }
+  };
+
+  const randomIdGenerator = () => {
+    return Math.floor(Math.random() * 1e8);
+  };
 
   return (
     <div className="bg-red-50 p-10 shadow-lg flex-grow rounded-lg ">
@@ -72,7 +87,7 @@ function CreateOrder() {
                 onChange={(e) => setId(e.target.value)}
               >
                 {rows.map((row, id) => (
-                  <MenuItem key={id} value={id}>
+                  <MenuItem key={randomIdGenerator()} value={id}>
                     {row.name}
                   </MenuItem>
                 ))}

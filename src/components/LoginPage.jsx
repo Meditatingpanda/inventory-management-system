@@ -1,8 +1,8 @@
 import { TextField } from "@material-ui/core";
 import { Button, Typography } from "@mui/material";
-import { mt } from "date-fns/locale";
-import { useState ,useEffect} from "react";
-import Navbar from "./Navbar";
+import { useState } from "react";
+import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
+
 
 const LoginPage = ({ state, setState }) => {
  
@@ -24,7 +24,14 @@ const LoginPage = ({ state, setState }) => {
     refreshPage();
   };
   return (
-    <div className="bg-red-50 min-h-screen flex justify-center items-center ">
+    <div className="bg-red-50 relative min-h-screen flex justify-center items-center ">
+     
+      <div  className="text-red-400 absolute top-3 left-3 flex items-center">
+      <LocalPharmacyIcon sx={{fontSize:'3rem'}}/>
+        <span className="text-3xl ">
+        PMS-React
+        </span>
+      </div>
       <div className="bg-red-100 w-[50%] justify-around h-[25rem] rounded-xl shadow-md p-9 flex flex-col items-center">
         <Typography variant="h3" className="text-red-300">
           Login
