@@ -32,7 +32,7 @@ const LoginPage = ({ state, setState }) => {
         <LocalPharmacyIcon sx={{ fontSize: "3rem" }} />
         <span className="text-3xl ">PMS-React</span>
       </div>
-      <div className="bg-red-100 w-[50%] justify-around h-[25rem] rounded-xl shadow-md p-9 flex flex-col items-center">
+      <div className="bg-red-100 w-full md:w-[50%] justify-around h-[25rem] rounded-xl shadow-md p-9 flex flex-col items-center">
         <Typography variant="h3" className="text-red-300">
           Login
         </Typography>
